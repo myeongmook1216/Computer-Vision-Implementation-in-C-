@@ -7,17 +7,17 @@ using namespace cv;
 
 Mat Gaussian_Kernel(int, float);
 Mat img_pixel_save(Mat&, const string&);
-Mat Sobel_operator(int); // 1³ÖÀ¸¸é x operator¹İÈ¯
+Mat Sobel_operator(int); // 1ë„£ìœ¼ë©´ x operatorë°˜í™˜
 Mat conv(Mat&, Mat&);
-Mat weight_x_y(Mat&, Mat&, float); // floatÀÇ Å©±â´Â x °¡ÁßÄ¡
-Mat calc_gradient_magnitude_orientation(Mat&, Mat&, int); // 1³ÖÀ¸¸é Å©±â,´Ù¸¥¼ıÀÚ ³ÖÀ¸¸é ¹æÇâ ¹İÈ¯
+Mat weight_x_y(Mat&, Mat&, float); // floatì˜ í¬ê¸°ëŠ” x ê°€ì¤‘ì¹˜
+Mat calc_gradient_magnitude_orientation(Mat&, Mat&, int); // 1ë„£ìœ¼ë©´ í¬ê¸°,ë‹¤ë¥¸ìˆ«ì ë„£ìœ¼ë©´ ë°©í–¥ ë°˜í™˜
 Mat NMS(Mat&, Mat&);
 Mat Hysteresis_Threshold(Mat&, float, float);
 
 
 int main() {
 	Mat img = imread("lena.jpg", IMREAD_GRAYSCALE);
-	if (img.empty()) { cout << "Image Open Error!" << endl;        return -1; } //img°¡ ¾È¿­¸®¸é -1 ¹İÈ¯
+	if (img.empty()) { cout << "Image Open Error!" << endl;        return -1; } //imgê°€ ì•ˆì—´ë¦¬ë©´ -1 ë°˜í™˜
 
 
 	// Mat img_pixel = img_pixel_save(img, "mook_pixel.jpg");
@@ -27,8 +27,6 @@ int main() {
 	Mat sobeloperator_x = Sobel_operator(1);	Mat sobeloperator_y = Sobel_operator(0);
 
 	img_step1.convertTo(img_step1, CV_8UC1);
-	Mat img_sobel_x = conv(img_step1, sobeloperator_x);	Mat img_sobel_y = conv(img_step1, sobeloperator_y);
-
 	Mat img_sobel_x = conv(img_step1, sobeloperator_x);	Mat img_sobel_y = conv(img_step1, sobeloperator_y);
 
 	Mat sobel_combined; hconcat(img_sobel_x, img_sobel_y, sobel_combined); 
@@ -139,7 +137,7 @@ Mat calc_gradient_magnitude_orientation(Mat& img_x, Mat& img_y, int k) {
 		for (int y = 0; y < img_y.rows; ++y) {
 			mag.at<float>(y, x) = sqrt(img_x.at<float>(y, x) * img_x.at<float>(y, x) + img_y.at<float>(y, x) * img_y.at<float>(y, x));
 			float a = atan2(img_y.at<float>(y, x), img_x.at<float>(y, x))*180 / PI;
-			if (a < 0) a = -a; // -pi¿¡¼­ pi·Î ¹Ş¾Æ¿Â °¢À» ¹Ù·Î À­ÁÙ¿¡¼­ °¢À¸·Î ¹Ù²Û µÚ¿¡, °¢µµÀÇ Àı´ñ°ª ÀúÀå(0~180)
+			if (a < 0) a = -a; // -piì—ì„œ pië¡œ ë°›ì•„ì˜¨ ê°ì„ ë°”ë¡œ ìœ—ì¤„ì—ì„œ ê°ìœ¼ë¡œ ë°”ê¾¼ ë’¤ì—, ê°ë„ì˜ ì ˆëŒ“ê°’ ì €ì¥(0~180)
 			orient.at<float>(y, x) =a;
 		}
 	}
@@ -222,10 +220,10 @@ Mat img_pixel_save(Mat& img, const string& path) {
 
 			Point text_Pos(x * scale + scale / 4, y * scale + scale / 2);
 
-			// °¢ ÇÈ¼¿ÀÇ ¿µ¿ªÀ» ¼±À¸·Î ³ª´²ÁÜ
+			// ê° í”½ì…€ì˜ ì˜ì—­ì„ ì„ ìœ¼ë¡œ ë‚˜ëˆ ì¤Œ
 			rectangle(img_pixel, Rect(text_Pos.x, text_Pos.y - scale / 2, scale, scale), Scalar(255, 255, 255), 1);
 
-			// ÇÈ¼¿°ªÀÇ ±ÛÀÚ Å©±â¸¦ ÁÙ¿©ÁÜ
+			// í”½ì…€ê°’ì˜ ê¸€ì í¬ê¸°ë¥¼ ì¤„ì—¬ì¤Œ
 			putText(img_pixel, text, text_Pos, FONT_HERSHEY_SIMPLEX, 0.3, Scalar(255, 255, 255), 1, LINE_AA);
 		}
 	}
