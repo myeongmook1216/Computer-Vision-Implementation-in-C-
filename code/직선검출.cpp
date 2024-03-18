@@ -53,10 +53,10 @@ Mat hough_space_line(Mat& img) {
         for (int y = 0; y < img.rows; ++y) {
             if (img.at<uchar>(y, x) != 0) {
                 for (int theta = 0; theta < 180; ++theta) {
-                    // º¯È¯µÈ ÆÄ¶ó¹ÌÅÍ °ø°£¿¡¼­ Á÷¼±ÀÇ ¹æÁ¤½ÄÀ» °è»ê
+                    // ë³€í™˜ëœ íŒŒë¼ë¯¸í„° ê³µê°„ì—ì„œ ì§ì„ ì˜ ë°©ì •ì‹ì„ ê³„ì‚°
                     double rho = x * cos(theta * CV_PI / 180) + y * sin(theta * CV_PI / 180);
 
-                    // Á÷¼±ÀÌ ÀÌ¹ÌÁö ³»¿¡ ÀÖ´ÂÁö È®ÀÎÇÏ°í, ÀÖ´Ù¸é ÇØ´ç À§Ä¡ÀÇ °ªÀ» +1
+                    // ì§ì„ ì´ ì´ë¯¸ì§€ ë‚´ì— ìˆëŠ”ì§€ í™•ì¸í•˜ê³ , ìˆë‹¤ë©´ í•´ë‹¹ ìœ„ì¹˜ì˜ ê°’ì„ +1
                     int rhoIdx = cvRound(rho) + max_rho_idx;
                     if (rhoIdx >= 0 && rhoIdx < parameter_space.rows && (parameter_space.at<uchar>(rhoIdx, theta) != 255)) {
                         parameter_space.at<uchar>(rhoIdx, theta)++;
@@ -106,7 +106,7 @@ Mat draw_detected(Mat& img, const Mat& hough_space, int threshold) {
     for (int rhoIdx = 0; rhoIdx < hough_space.rows; ++rhoIdx) {
         for (int theta = 0; theta < hough_space.cols; ++theta) {
             if (hough_space.at<uchar>(rhoIdx, theta) > threshold) {
-                // º¯È¯µÈ ÆÄ¶ó¹ÌÅÍ °ø°£¿¡¼­ Á÷¼±ÀÇ ¹æÁ¤½ÄÀ¸·Î ¿ªº¯È¯
+                // ë³€í™˜ëœ íŒŒë¼ë¯¸í„° ê³µê°„ì—ì„œ ì§ì„ ì˜ ë°©ì •ì‹ìœ¼ë¡œ ì—­ë³€í™˜
                 double rho = rhoIdx - hough_space.rows / 2.0;
                 double theta_rad = theta * CV_PI / 180.0;
                 double a = cos(theta_rad);
@@ -114,11 +114,11 @@ Mat draw_detected(Mat& img, const Mat& hough_space, int threshold) {
                 double x0 = rho * a;
                 double y0 = rho * b;
 
-                // ÁÂÇ¥ °è»ê
+                // ì¢Œí‘œ ê³„ì‚°
                 Point pt1(cvRound(x0 + 1000 * (-b)), cvRound(y0 + 1000 * (a)));
                 Point pt2(cvRound(x0 - 1000 * (-b)), cvRound(y0 - 1000 * (a)));
 
-                // Á÷¼± ±×¸®±â
+                // ì§ì„  ê·¸ë¦¬ê¸°
                 line(draw_img, pt1, pt2, Scalar(0, 0, 255), 2, LINE_AA);
             }
         }
