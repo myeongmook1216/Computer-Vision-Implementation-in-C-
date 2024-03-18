@@ -11,7 +11,7 @@ int main() {
     Mat inputImage = imread("lena.jpg", IMREAD_COLOR);
 
     if (inputImage.empty()) {
-        cout << "ÀÌ¹ÌÁö¸¦ ÀÐÀ» ¼ö ¾ø½À´Ï´Ù." << endl;
+        cout << "ì´ë¯¸ì§€ë¥¼ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤." << endl;
         return -1;
     }
 
