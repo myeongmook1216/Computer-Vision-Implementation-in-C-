@@ -90,8 +90,8 @@ Mat Morphology_erode(Mat& img, Mat& kernel) {
 
 
 
-Mat img_draw_func(Mat& img) { // ÇÈ¼¿°ª »Ì¾Æ³»±â
-	double scale = 512 / img.rows;   // Çà°ú ¿­ÀÇ scale °°´Ù°í °¡Á¤	
+Mat img_draw_func(Mat& img) { // í”½ì…€ê°’ ë½‘ì•„ë‚´ê¸°
+	double scale = 512 / img.rows;   // í–‰ê³¼ ì—´ì˜ scale ê°™ë‹¤ê³  ê°€ì •	
 
 	Mat img_draw(img.cols * scale, img.rows * scale, CV_8UC3, Scalar(0, 0, 0));
 	for (int i = 0; i < img.rows; i++)
