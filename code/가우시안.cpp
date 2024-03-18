@@ -113,7 +113,7 @@ Mat Gaussian_Kernel(int size, double sigma) {
 
 
 Mat img_draw_func_double(Mat& img) { 
-	double scale = 512 / img.rows;   // Çà°ú ¿­ÀÇ scale °°´Ù°í °¡Á¤	
+	double scale = 512 / img.rows;   // í–‰ê³¼ ì—´ì˜ scale ê°™ë‹¤ê³  ê°€ì •	
 
 	Mat img_draw(img.cols * scale, img.rows * scale, CV_64FC1, Scalar(0, 0, 0));
 	for (int i = 0; i < img.rows; i++)
@@ -136,7 +136,7 @@ Mat img_draw_func_double(Mat& img) {
 
 
 Mat img_draw_func_uchar(Mat& img) { 
-	double scale = 512 / img.rows;   // Çà°ú ¿­ÀÇ scale °°´Ù°í °¡Á¤	
+	double scale = 512 / img.rows;   // í–‰ê³¼ ì—´ì˜ scale ê°™ë‹¤ê³  ê°€ì •	
 
 	Mat img_draw(img.cols * scale, img.rows * scale, CV_8UC3, Scalar(0, 0, 0));
 	for (int i = 0; i < img.rows; i++)
